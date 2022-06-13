@@ -1,0 +1,95 @@
+---
+title: "Hypothesis testing sample size"
+author: "Craig W. Slinkman"
+date: '2022-06-13'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+using namespace Rccp;
+
+## Hypohessiis Sample Size Computations
+
+This is an example of how to compute the sample size for a two independent sample test.  It is an practical example of the computations needed to compute the sample size to illustrate the theory and computations needed to compute the sample size when controlling for Type I and Type II errors in the two independent sample case.
+
+### Hypothesis set
+We are going to used a paired t-test. We will measure the weight of the men prior to treatement and after treatment.  We will then compute the percentage change in weight.  To obtain the percentage change we will divided by the initial weight 
+
+\begin{equation}
+y = \dfrac{(prior\ weight) - (post\ weight)}{(post\ weight)} \times 100\%
+\end{equation}
+
+$y$ is the percent chnage is the weight.  It can be either negstive of positive depending on whether there was a decrease in weight or an increase in a weight.
+
+The null hypothesis is that there is no percentage difference in mean weight:
+
+$NH:\mu_{pd} = 0$
+
+The alternative hypothesis is that there is a men decrease in weight.  We can write this as 
+
+$AH:\mu_{pd} > 0$
+
+### Clinical significance or practical sigbificance
+
+The term “clinically significant” [1] can be used for the researches in which clinically relevant results or outcomes are used to assess the effectiveness or efficacy of a treatment modality. When used the term “clinically significant” findings are those who make the patient improves the quality of life and makes him/her feel, function well.
+
+We note that it is possible for a treatment to be statistically significant but not address the patient's problem.  Suppose, that the drug causes a weight loss of 1/2 pound.  Is this practially signifcant in a person that weighs 190 pounds.  On the otherhand a weight loss of more than 10 pounds can be considered clinically significant.
+
+When the subject area is engineering or business administration the sane concept applies but we call practical significance[2].  Practical significance refers to the magnitude of the difference, which is known as the effect size. Results are practically significant when the difference is large enough to be meaningful in real life. What is meaningful may be subjective and may depend on the context.
+
+Note that statistical significance is directly impacted by sample size. Recall that there is an inverse relationship between sample size and the standard error (i.e., standard deviation of the sampling distribution). Very small differences will be statistically significant with a very large sample size. Thus, when results are statistically significant it is important to also examine practical significance. Practical significance is not directly influenced by sample size.
+
+Robert Abelson[3] gives a set of criteria that can be used to assess the creditability of a statistical inference The MAGIC criteria are a set of guidelines put forth by Robert Abelson in his book Statistics as Principled Argument. In this book he posits that the goal of statistical analysis should be to make compelling claims about the world[1] and he presents the MAGIC criteria as a way to do that.
+
+## Problem specification}
+
+
+For our example the effect size will be 5%.  Anything less than 5% will be deemed ineffctive.  
+
+The population standard deviation is 7%.  The population standard deviation is 10%.  For our initial calculations we will use a sample size of 25.  Therefore, the population standard error is therefore
+
+\begin{equation}
+  \sigma_{\bar{x}} = \dfrac{\sigma}{\sqrt{n}} = \dfrac{10}{\sqrt{25}} = 2
+\end{equation}
+
+We will use a 1% level of significance and we desire that the pobability that we reject an false null hypothesis to be be 75%.
+
+## The null hypothesis sampling distribution
+
+If the null hypothesis is true then the sampling distribution of mean percent weight loss has a mean of zero and standard error of 2.  We can compute the critical value of the test as follows
+
+```{r}
+munh <- 0
+se <- 2
+alpha <- 0.01
+z = qnorm( 1- alpha )
+cv = round( munh  + z * se, 2 )
+```
+
+
+
+\begin{equation}
+  \bar{y}_{cv} = \mu_{NH} + z_{1-\alpha}\cdot \sigma_{\bar{y}} = `r munh` + 
+                 `r round(z,2)` \times `r se`  
+              = `r cv`
+
+\end{equation}
+
+WE we draw the sampling distribution below
+
+```{r}
+
+```
+
+
+
+## References  
+
+[1] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8477766/
+
+[2] https://online.stat.psu.edu/stat200/lesson/6/6.4
+
+[3] http://drafts.jsvine.com/the-magic-criteria/
