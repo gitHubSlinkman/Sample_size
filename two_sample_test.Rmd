@@ -1,0 +1,42 @@
+---
+title: "Hypothesis testing sample size"
+author: "Craig W. Slinkman"
+date: '2022-06-13'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+using namespace Rccp;
+
+## Hypohessiis Sample Size Computations
+
+This is an example of how to compute the sample size for a two independent sample test.  It is an practical example of the computations needed to compute the sample size to illustrate the theory and computations needed to compute the sample size when controlling for Type I and Type II errors in the two independent sample case.
+
+### Hypothesis set
+
+We are going to used a paired t-test. We will measure the weight of the men prior to treatement and after treatment.  We will then compute the percentage change in weight.  To obtain the oercebntage change we will divided by the initial weight 
+
+$pd = \frac{prior\ \weight  -\  post\weight}{prior\ weight} \times 100\%\ \ $ where $pd$ is the percentage difference is weight.
+
+The null hypothesis is that there is no percentage difference in mean weight:
+
+$NH:\mu_{pd} = 0$
+
+The alternative hypothesis is that there is a men decrease in weight.  We can write this as 
+
+$AH:\mu_{pd} > 0$
+
+### Clinical significance or practical sigbificance
+
+The term “clinically significant”$^1$ can be used for the researches in which clinically relevant results or outcomes are used to assess the effectiveness or efficacy of a treatment modality. When used the term “clinically significant” findings are those who make the patient improves the quality of life and makes him/her feel, function well.
+
+We note that it is possible for a treatment to be statistically significant but not address the patient's problem.  Suppose, that the drug causes a weight loss of 1/2 pound.  Is this practially signifcant in a person that weighs 190 pounds.  On the otherhand a weight loss of more than 10 pounds can be considered clinically significant.   
+
+
+
+### References  
+
+1. Saudi J Anaesth(). Statistical significance or clinical significance? A researcher's dilemma for appropriate interpretation of research results. Saudi Journal of Anethesia,  v.15(4). https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8477766/
